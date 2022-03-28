@@ -1,0 +1,1 @@
+from.vuews import bp as front_bp
