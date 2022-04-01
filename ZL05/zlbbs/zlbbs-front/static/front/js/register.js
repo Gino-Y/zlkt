@@ -3,8 +3,9 @@ var RegisterHandler = function () {
 }
 
 RegisterHandler.prototype.listenSendCaptchaEvent = function () {
-    $('#email-captcha-btn').on('click', function (event) {
+    var callback = function (event) {
         // 原生的JS对象：this => jQuery对象
+        var $this = $(this);
         // 阻止默认的点击事件
         event.preventDefault();
         var email = $("input[name='email']").val();
@@ -21,13 +22,31 @@ RegisterHandler.prototype.listenSendCaptchaEvent = function () {
                 {
                     console.log('邮件发送成功！')
                     // 取消按钮的点击事件
+                    $this.off('click');
+                    // 添加禁用状态
+                    $this.attr('disable', 'disable')
+                    // 开始倒计时
+                    var countdown = 60;
+                    var interval = setInterval(function () {
+                        if(countdown > 0){
+                            $this.text(countdown)
+                        }else {
+                            $this.text('发送验证码')
+                            $this.attr('disabled', false)
+                            $this.on('click', callback)
+                            // 清理定时器
+                            clearInterval(interval)
+                        }
+                        countdown--;
+                    }, 1000)
                 }else{
                     var message = result['message']
                     alert(message)
                 }
             }
         })
-    })
+    }
+    $('#email-captcha-btn').on('click', callback)
 }
 
 RegisterHandler.prototype.run = function () {
