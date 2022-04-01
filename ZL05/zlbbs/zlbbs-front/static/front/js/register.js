@@ -28,9 +28,12 @@ RegisterHandler.prototype.listenSendCaptchaEvent = function () {
                     // 开始倒计时
                     var countdown = 60;
                     var interval = setInterval(function () {
-                        if(countdown > 0){
+                        if(countdown > 0)
+                        {
                             $this.text(countdown)
-                        }else {
+                        }
+                        else
+                        {
                             $this.text('发送验证码')
                             $this.attr('disabled', false)
                             $this.on('click', callback)
