@@ -41,6 +41,7 @@ mycelery = make_celery(app)
 # 注册蓝图
 app.register_blueprint(front_bp)
 
+
 @app.route('/')
 def hello_world():  # put application's code here
     return 'Hello World!'

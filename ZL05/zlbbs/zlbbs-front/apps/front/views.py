@@ -24,7 +24,6 @@ def qwe():
     return 'qwe'
 
 
-
 @bp.get("/email/captcha")
 def email_captcha():
     # /email/captcha?email=xx@qq.com

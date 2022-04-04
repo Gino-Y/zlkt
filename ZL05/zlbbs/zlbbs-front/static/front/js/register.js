@@ -26,7 +26,7 @@ RegisterHandler.prototype.listenSendCaptchaEvent = function () {
                     // 添加禁用状态
                     $this.attr('disable', 'disable')
                     // 开始倒计时
-                    var countdown = 60;
+                    var countdown = 5;
                     var interval = setInterval(function () {
                         if(countdown > 0)
                         {
