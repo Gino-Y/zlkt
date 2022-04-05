@@ -22,7 +22,7 @@ RegisterHandler.prototype.listenSendCaptchaEvent = function () {
                 {
                     console.log('邮件发送成功！')
                     // 取消按钮的点击事件
-                    $this.off('click');
+                    $this.off('click')
                     // 添加禁用状态
                     $this.attr('disable', 'disable')
                     // 开始倒计时

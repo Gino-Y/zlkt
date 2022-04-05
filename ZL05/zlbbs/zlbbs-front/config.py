@@ -1,4 +1,8 @@
+import os
+
 SECRET_KEY = 'asdfgaslkjsdfofzj'
+
+BASE_DIR = os.path.dirname(__file__)
 
 HOST = '127.0.0.1'
 PORT = '3306'

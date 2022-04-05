@@ -4,11 +4,15 @@ import random
 import string
 
 
-from flask import Blueprint, request, render_template, jsonify, current_app
+from flask import Blueprint, request, render_template, jsonify, current_app, make_response
 from flask_mail import Message
 from exts import mail
 from exts import cache
 from utils import restful
+from utils.captcha import Captcha
+import time
+from hashlib import md5
+from io import BytesIO
 
 
 bp = Blueprint('front', __name__, url_prefix='/')
@@ -39,6 +43,24 @@ def email_captcha():
     cache.set(email, captcha)
     print(cache.get(email))
     return restful.ok(message='邮件发送成功')
+
+
+@bp.route('/graph/capthca')
+def graph_captcha():
+    captcha, image = Captcha.gene_graph_captcha()
+    # 将验证码存放在缓存中
+    # key, value
+    # bytes
+    key = md5((captcha + str(time.time())).encode('utf-8')).hexdigest()
+    cache.set(key, captcha)
+    out = BytesIO()
+    image.save(out, 'png')
+    # 把out的文件指针只想最开始的位置
+    out.seek(0)
+    resp = make_response(out.read())
+    resp.content_type = 'image / png'
+    resp.set_cookie('_graph_captcha_key', key, max_age=3600)
+    return resp
 
 
 
