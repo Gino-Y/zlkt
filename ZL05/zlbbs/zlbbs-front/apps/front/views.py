@@ -72,3 +72,4 @@ def login():
 def register():
     if request.method == 'GET':
         return render_template("front/register.html")
+
