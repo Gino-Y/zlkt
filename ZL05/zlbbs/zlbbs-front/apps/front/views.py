@@ -3,6 +3,7 @@
 import random
 import string
 
+
 from flask import Blueprint, request, render_template, jsonify, current_app, make_response
 from flask_mail import Message
 from exts import mail
@@ -60,6 +61,7 @@ def graph_captcha():
     resp.content_type = 'image / png'
     resp.set_cookie('_graph_captcha_key', key, max_age=3600)
     return resp
+
 
 
 @bp.route('/login', methods=['GET', 'POST'])
