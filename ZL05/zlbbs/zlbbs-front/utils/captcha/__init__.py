@@ -55,11 +55,11 @@ class Captcha(object):
     @classmethod
     def __gene_random_font(cls):
         fonts = [
-            'Courgette-Regular.ttf',
-            'LHANDW.TTF',
-            'Lobster-Regular.ttf',
-            'verdana.ttf'
-        ]
+                'Courgette-Regular.ttf',
+                'LHANDW.TTF',
+                'Lobster-Regular.ttf',
+                'verdana.ttf'
+                ]
         font = random.choice(fonts)
         fontpath = os.path.join(current_app.config['BASE_DIR'], 'utils', 'captcha', font)
         # return 'utils/captcha/'+font
@@ -98,4 +98,4 @@ class Captcha(object):
             cls.__gene_line(draw, width, height)
         # 绘制噪点
         cls.__gene_points(draw, 10, width, height)
-        return (text, image)
+        return text, image

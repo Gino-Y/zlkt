@@ -21,9 +21,7 @@ Python中操作redis安装两个包：
 pip install gevent
 celery -A app.mycelery worker --loglevel=info -P gevent
 
-
 pip install flask-wtf
-
 '''
 
 app = Flask(__name__)
