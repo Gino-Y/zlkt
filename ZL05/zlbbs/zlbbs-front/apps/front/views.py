@@ -1,8 +1,6 @@
 # coding=utf-8
 
-import random
-import string
-
+import random, string, time
 
 from flask import Blueprint, request, render_template, jsonify, current_app, make_response
 from flask_mail import Message
@@ -10,10 +8,8 @@ from exts import mail
 from exts import cache
 from utils import restful
 from utils.captcha import Captcha
-import time
 from hashlib import md5
 from io import BytesIO
-
 
 bp = Blueprint('front', __name__, url_prefix='/')
 
@@ -55,13 +51,12 @@ def graph_captcha():
     cache.set(key, captcha)
     out = BytesIO()
     image.save(out, 'png')
-    # 把out的文件指针只想最开始的位置
+    # 把out的文件指针指向最开始的位置（归位）
     out.seek(0)
     resp = make_response(out.read())
     resp.content_type = 'image / png'
     resp.set_cookie('_graph_captcha_key', key, max_age=3600)
     return resp
-
 
 
 @bp.route('/login', methods=['GET', 'POST'])
@@ -74,4 +69,3 @@ def login():
 def register():
     if request.method == 'GET':
         return render_template("front/register.html")
-

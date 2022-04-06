@@ -52,8 +52,20 @@ RegisterHandler.prototype.listenSendCaptchaEvent = function () {
     $('#email-captcha-btn').on('click', callback)
 }
 
+RegisterHandler.prototype.listenGraphCaptchaEvent = function () {
+    $('#captcha-img').on('click', function () {
+        console.log('dianji')
+        var $this = $(this);
+        var src = $this.attr('src');
+        // 防止在 两次url相同的情况下， 不会重新发送请求，导致图形验证码不会更新
+        let new_src = zlparam.setParam(src, 'sign', Math.random())
+        $.attr('src', new_src);
+    })
+}
+
 RegisterHandler.prototype.run = function () {
     this.listenSendCaptchaEvent();
+    this.listenGraphCaptchaEvent();
 }
 
 // JQuery(function () {})
