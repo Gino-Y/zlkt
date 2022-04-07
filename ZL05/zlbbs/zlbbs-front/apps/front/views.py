@@ -55,7 +55,7 @@ def graph_captcha():
     out.seek(0)
     resp = make_response(out.read())
     resp.content_type = 'image / png'
-    resp.set_cookie('_graph_captcha_key', key, max_age=3600)
+    resp.set_cookie('_graph_captcha_key', key, max_age=1800)
     return resp
 
 
