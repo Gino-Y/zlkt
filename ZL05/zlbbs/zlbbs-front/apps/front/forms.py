@@ -9,3 +9,6 @@ class RegisterForm(Form):
     password = StringField(validators=[Length(6, 20, message='请输入正确长度的密码')])
     repeat_password = StringField(validators=[EqualTo('password', message='两次密码不一致！')])
     graph_captcha = StringField(validators=[Length(4, 4, message='请输入正确长度的图形验证码！')])
+
+    def validate_email(self, field):
+        email = field.data

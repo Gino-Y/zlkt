@@ -21,7 +21,7 @@ class Captcha(object):
     # 验证码字体大小
     fontsize = 25
     # 加入干扰线的条数
-    line_number = 2
+    line_number = 3
 
     # 构建一个验证码源文本
     SOURCE = list(string.ascii_letters)
