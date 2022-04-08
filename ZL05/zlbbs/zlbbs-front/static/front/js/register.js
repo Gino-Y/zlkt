@@ -63,9 +63,38 @@ RegisterHandler.prototype.listenGraphCaptchaEvent = function () {
     })
 }
 
+RegisterHandler.prototype.listenSubmitEvent = function(){
+    $('#submit-btn').on('click', function (event){
+        event.preventDefault()
+        var email = $("input[name='email']")
+        var email_captcha = $("input[name='email-captcha']")
+        var username = $("input[name='username']")
+        var password = $("input[name='password']")
+        var repeat_password = $("input[name='repeat-password']")
+        var graph_captcha = $("input[name='graph-captcha']")
+
+        // 如果是商业项目，异性要先验证这些数据是否正确
+        zlajax.post({
+            url: '/register',
+            data:{
+                'email': email,
+                'email_captcha': email_captcha,
+                'username': username,
+                password, //  == 'password': password
+                repeat_password,
+                graph_captcha
+            },
+            success: function (result) {
+                console.log(result);
+            }
+        })
+    })
+}
+
 RegisterHandler.prototype.run = function () {
     this.listenSendCaptchaEvent();
     this.listenGraphCaptchaEvent();
+    this.listenSubmitEvent();
 }
 
 // JQuery(function () {})
