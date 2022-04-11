@@ -85,7 +85,14 @@ RegisterHandler.prototype.listenSubmitEvent = function(){
                 graph_captcha
             },
             success: function (result) {
-                console.log(result);
+                if(result['code'] == 200)
+                {
+                    window.location = '/login'
+                }
+                else
+                {
+                    alert(result['message'])
+                }
             }
         })
     })

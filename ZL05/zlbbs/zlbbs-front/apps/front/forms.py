@@ -5,7 +5,18 @@ from models.auth import UserModel
 from exts import cache
 from flask import request
 
-class RegisterForm(Form):
+
+class BaseForm(Form):
+  @property
+  def messages(self):
+    message_list = []
+    if self.errors:
+      for errors in self.errors.values():
+        message_list.extend(errors)
+    return message_list
+
+
+class RegisterForm(BaseForm):
     # 如果使用了Email这个validator，那么就必须要安装email_validator
     # pip install email_validator
     email = StringField(validators=[Email(message='请输入正确的邮箱！')])

@@ -82,5 +82,5 @@ def register():
             return restful.ok()
         else:
             # form.errors中存放了所有的错误信息
-            print(form.errors)
-            return 'failure'
+            message = form.messages[0]
+            return restful.params_error(message=message)
