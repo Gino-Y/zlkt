@@ -66,12 +66,12 @@ RegisterHandler.prototype.listenGraphCaptchaEvent = function () {
 RegisterHandler.prototype.listenSubmitEvent = function(){
     $('#submit-btn').on('click', function (event){
         event.preventDefault()
-        var email = $("input[name='email']")
-        var email_captcha = $("input[name='email-captcha']")
-        var username = $("input[name='username']")
-        var password = $("input[name='password']")
-        var repeat_password = $("input[name='repeat-password']")
-        var graph_captcha = $("input[name='graph-captcha']")
+        var email = $("input[name='email']").val()
+        var email_captcha = $("input[name='email-captcha']").val()
+        var username = $("input[name='username']").val()
+        var password = $("input[name='password']").val()
+        var repeat_password = $("input[name='repeat-password']").val()
+        var graph_captcha = $("input[name='graph-captcha']").val()
 
         // 如果是商业项目，异性要先验证这些数据是否正确
         zlajax.post({
