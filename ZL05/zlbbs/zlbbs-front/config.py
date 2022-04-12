@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 SECRET_KEY = 'asdfgaslkjsdfofzj'
 
@@ -20,6 +21,7 @@ SQLALCHEMY_DATABASE_URI = DB_URI
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 SQLALCHEMY_ECHO = True
 
+PERMANENT_SESSION_LIFETIME = timedelta(days=7)
 
 # MAIL_USE_TLS: 端口号587
 # MAIL_USE_SSL: 端口号465

@@ -2,13 +2,13 @@
 
 import random, string, time
 
-from flask import Blueprint, request, render_template, jsonify, current_app, make_response
+from flask import Blueprint, request, render_template, jsonify, current_app, make_response, session
 from exts import cache
 from utils import restful
 from utils.captcha import Captcha
 from hashlib import md5
 from io import BytesIO
-from .forms import RegisterForm
+from .forms import RegisterForm, LoginForm
 from models.auth import UserModel
 from exts import db
 
@@ -64,6 +64,24 @@ def graph_captcha():
 def login():
     if request.method == 'GET':
         return render_template("front/login.html")
+    else:
+        form = LoginForm(request.form)
+        if form.validate():
+            email = form.email.data
+            password = form.password.data
+            remember = form.remember.data
+            user = UserModel.query.filter_by(email=email).first()
+            if not user:
+                return restful.params_error('邮箱或密码错误！')
+            if not user.check_password(password):
+                return restful.params_error('邮箱或密码错误！')
+            session['user_id'] = user.id
+            if remember == 1:
+                # 默认session过期时间，就是只要浏览器 关闭了就会过期
+                session.permanent = True
+            return restful.ok()
+        else:
+            return restful.params_error(message=form.messages[0])
 
 
 @bp.route('/register', methods=['GET', 'POST'])
