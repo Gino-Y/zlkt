@@ -7,11 +7,28 @@ LoginHadler.prototype.listenSubmitEvent = function () {
         var email = $("input[name='email']").val()
         var password = $("input[name='password']").val()
         var remember = $("input[name='remember']").prop('checked')
-        console.log(email, password, remember)
+        zlajax.post({
+            url:'/login',
+            data:{
+                email,
+                password,
+                remember: remember ? 1 : 0
+            },
+            success: function (result) {
+                if(result['code'] == 200)
+                {
+                    window.location = '/'
+                }
+                else
+                {
+                    alert(result['message'])
+                }
+            }
+        })
     })
 }
 LoginHadler.prototype.run = function () {
-
+    this.listenSubmitEvent()
 }
 
 $(function(){
