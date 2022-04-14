@@ -2,7 +2,15 @@
 
 import random, string, time
 
-from flask import Blueprint, request, render_template, jsonify, current_app, make_response, session
+from flask import (Blueprint,
+                   request,
+                   render_template,
+                   jsonify,
+                   current_app,
+                   make_response,
+                   session,
+                   redirect,
+                   g)
 from exts import cache
 from utils import restful
 from utils.captcha import Captcha
@@ -15,8 +23,26 @@ from exts import db
 bp = Blueprint('front', __name__, url_prefix='/')
 
 
+# 钩子函数：before_request, 在调用视图函数之前执行
+@bp.before_request
+def front_before_reuqest():
+    if 'user_id' in session:
+        user_id = session.get('user_id')
+        user = UserModel.query.get(user_id)
+        setattr(g, 'user', user)
+
+
+# 上下文处理器
+@bp.context_processor
+def front_context_processor():
+    if hasattr(g, 'user'):
+        return {'user': g.user}
+    else:
+        return {}
+
+
 @bp.route('/')
-def hello_world():
+def index():
     return render_template('front/index.html')
 
 
@@ -102,3 +128,14 @@ def register():
             # form.errors中存放了所有的错误信息
             message = form.messages[0]
             return restful.params_error(message=message)
+
+
+@bp.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
+
+
+@bp.route('/setting')
+def setting():
+    return render_template('front/setting.html')
