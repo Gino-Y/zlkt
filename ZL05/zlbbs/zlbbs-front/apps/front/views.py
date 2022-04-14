@@ -17,7 +17,7 @@ bp = Blueprint('front', __name__, url_prefix='/')
 
 @bp.route('/')
 def hello_world():
-    return 'Hello World!'
+    return render_template('front/index.html')
 
 
 @bp.route('/qwe', methods=['GET', 'POST'])
