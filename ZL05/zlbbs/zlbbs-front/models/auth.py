@@ -31,4 +31,4 @@ class UserModel(db.Model):
         self._password = generate_password_hash(newpwd)
 
     def check_password(self, rawpwd):
-        return self.password, rawpwd
+        return check_password_hash(self.password, rawpwd)

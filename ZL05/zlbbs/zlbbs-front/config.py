@@ -5,11 +5,11 @@ SECRET_KEY = 'asdfgaslkjsdfofzj'
 
 BASE_DIR = os.path.dirname(__file__)
 
-HOST = '127.0.0.1'
+HOST = '47.241.35.150'
 PORT = '3306'
 DATABASE = 'pythonbbs'
 USERNAME = 'root'
-PASSWORD = ''
+PASSWORD = 'Kadfgo53254G'
 
 DB_URI = "mysql+pymysql://{username}:{password}@{host}:{port}/{db}?charset=utf8".format(username=USERNAME,
                                                                                         password=PASSWORD,
