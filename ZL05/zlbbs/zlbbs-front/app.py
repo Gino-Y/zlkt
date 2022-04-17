@@ -1,6 +1,10 @@
 from flask import Flask
 import config
-from exts import db, mail, cache, csrf
+from exts import (db,
+                  mail,
+                  cache,
+                  csrf,
+                  avatars)
 from flask_migrate import Migrate
 from models import auth
 from apps.front import front_bp
@@ -31,6 +35,7 @@ db.init_app(app)
 mail.init_app(app)
 cache.init_app(app)
 csrf.init_app(app)
+avatars.init_app(app)
 
 migrate = Migrate(app, db)
 
