@@ -19,6 +19,7 @@ from io import BytesIO
 from .forms import RegisterForm, LoginForm
 from models.auth import UserModel
 from exts import db
+from .decorators import login_required
 
 bp = Blueprint('front', __name__, url_prefix='/')
 
@@ -137,5 +138,6 @@ def logout():
 
 
 @bp.route('/setting')
+@login_required
 def setting():
     return render_template('front/setting.html')
