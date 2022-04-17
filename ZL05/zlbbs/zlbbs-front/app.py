@@ -8,6 +8,7 @@ from exts import (db,
 from flask_migrate import Migrate
 from models import auth
 from apps.front import front_bp
+from apps.media import media_bp
 from bbs_celery import make_celery
 
 '''
@@ -43,6 +44,7 @@ mycelery = make_celery(app)
 
 # 注册蓝图
 app.register_blueprint(front_bp)
+app.register_blueprint(media_bp)
 
 
 @app.route('/')
